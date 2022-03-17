@@ -1,0 +1,9 @@
+resources:
+  - mq-metric-samples/deployment.yaml
+  - mq-metric-samples/role.yaml
+  - mq-metric-samples/rolebinding.yaml
+  - mq-metric-samples/route.yaml
+  - mq-metric-samples/secret.yaml
+  - mq-metric-samples/service.yaml
+  - mq-metric-samples/serviceaccount.yaml
+  - mq-metric-samples/servicemonitor.yaml

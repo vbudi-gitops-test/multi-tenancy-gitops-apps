@@ -302,6 +302,7 @@ spec:
           fi
 
           cp -r "$SOURCE_DIR"/*.yaml $(params.app-path)/"${SUBDIR}"/overlays/$(params.environment)/${SUBDIR}
+          cp -r "$SOURCE_DIR"/configmap.yaml $(params.app-path)/"${SUBDIR}"/overlays/$(params.environment)/configmap
 
           APP_VERSION="$(git rev-parse HEAD | cut -c 1-8)"
 
