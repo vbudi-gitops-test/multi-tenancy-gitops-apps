@@ -1,0 +1,5 @@
+resources:
+ - ../../base
+ - configmap/configmap.yaml
+patchesStrategicMerge:
+ - mq-spring-app/deployment.yaml
