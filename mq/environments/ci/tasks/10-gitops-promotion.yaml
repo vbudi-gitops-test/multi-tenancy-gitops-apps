@@ -111,28 +111,28 @@ spec:
           fi
           if [[ -n "$(params.parentdir)" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/${SUBDIR}/overlays/$(params.src-environment)"
+              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/$(params.src-environment)"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/${SUBDIR}/overlays/$(params.dest-environment)"
+              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/$(params.dest-environment)"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]] && [[ "${GIT_PARENT_DIR}" = "bash -c"* ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/${SUBDIR}/overlays/$(params.src-environment)"
+              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.src-environment)"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/${SUBDIR}/overlays/$(params.dest-environment)"
+              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.dest-environment)"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/${SUBDIR}/overlays/$(params.src-environment)"
+              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/$(params.src-environment)"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/${SUBDIR}/overlays/$(params.dest-environment)"
+              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/$(params.dest-environment)"
             else
               echo "Please set destination environment"
             fi
@@ -147,10 +147,10 @@ spec:
             fi
           fi
           if [[ -n "$(params.src-environment)" ]]; then
-            SUBDIR_SRC="${PARENT_DIR_SRC}/${SUBDIR}"
+            SUBDIR_SRC="${PARENT_DIR_SRC}"
           fi
           if [[ -n "$(params.dest-environment)" ]]; then
-            SUBDIR_DEST="${PARENT_DIR_DEST}/${SUBDIR}"
+            SUBDIR_DEST="${PARENT_DIR_DEST}"
           else
             echo "Please set destination environment"
           fi
