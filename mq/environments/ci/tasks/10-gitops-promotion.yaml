@@ -111,28 +111,28 @@ spec:
           fi
           if [[ -n "$(params.parentdir)" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/$(params.src-environment)"
+              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/$(params.dest-environment)"
+              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]] && [[ "${GIT_PARENT_DIR}" = "bash -c"* ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.src-environment)"
+              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.dest-environment)"
+              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/$(params.src-environment)"
+              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/$(params.dest-environment)"
+              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
             else
               echo "Please set destination environment"
             fi
