@@ -1,3 +1,1 @@
-resources:
-#- secrets/ibm-entitlement-key-secret.yaml
-#- dashboard/ace-dashboard.yaml
+resources: []

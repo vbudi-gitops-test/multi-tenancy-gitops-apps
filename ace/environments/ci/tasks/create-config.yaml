@@ -180,18 +180,11 @@ spec:
             ${KUSTOMIZATION_PATH})
 
           if [[ -z $contains ]]; then
-            config=${relative_path_to_item} yq e -i '.resources = (.resources // []) + env(config)' \
+            config=${relative_path_to_item} yq e -i -P '.resources = (.resources // []) + env(config)' \
               ${KUSTOMIZATION_PATH}
 
             prettyfy ${KUSTOMIZATION_PATH}
           fi
-        }
-
-        function prettyfy() {
-          local file=$1
-
-          yq e --prettyPrint $file >/tmp/temp.yaml
-          mv /tmp/temp.yaml $file
         }
 
         if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
