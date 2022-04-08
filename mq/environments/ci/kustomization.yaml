@@ -6,6 +6,7 @@ resources:
 #- triggerbindings/cntk-binding.yaml
 #- triggertemplates/mq-infra-dev.yaml
 #- triggertemplates/mq-spring-app-dev.yaml
+#- pipelines/mq-metric-samples-dev-pipeline.yaml
 - pipelines/ibm-test-pipeline-for-dev.yaml
 - pipelines/ibm-test-pipeline-for-stage.yaml
 #- pipelines/java-maven-dev-pipeline.yaml
@@ -38,6 +39,7 @@ resources:
 - tasks/ibm-java-maven-test-v2-6-13.yaml
 - tasks/ibm-setup-v2-6-13.yaml
 - tasks/ibm-tag-release-v2-6-13.yaml
+#- tasks/mq-metrics-build-tag-push.yaml
 
 # Automated promotion process triggers
 
