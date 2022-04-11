@@ -1,6 +1,0 @@
-resources:
-  - mq-spring-app/deployment.yaml
-  - mq-spring-app/jaegerconfigmap.yaml
-  - mq-spring-app/route.yaml
-  - mq-spring-app/service.yaml
-  - mq-spring-app/serviceaccount.yaml
