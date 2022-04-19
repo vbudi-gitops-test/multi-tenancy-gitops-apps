@@ -7,8 +7,8 @@ spec:
     kind: Service
     name: el-ace-bar
   port:
-    targetPort: http-listener
+    targetPort: https-listener
   tls:
-    termination: edge
+    termination: passthrough
   wildcardPolicy: None
 
