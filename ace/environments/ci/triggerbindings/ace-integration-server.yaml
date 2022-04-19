@@ -1,10 +1,10 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: ace-bar
+  name: ace-integration-server
 spec:
   params:
-  - name: source-git-url
-    value: $(body.repository.url)
-  - name: source-repo-name
+  - name: source-repo
     value: $(body.repository.name)
+  - name: git-org
+    value: $(body.organization.login)
