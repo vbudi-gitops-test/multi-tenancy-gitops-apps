@@ -6,6 +6,7 @@ spec:
   params:
     - name: is-source-directory
   results:
+    - name: is-project
     - name: is-application-name
     - name: is-release-name
     - name: is-configuration-keystore
@@ -53,6 +54,7 @@ spec:
           echo -n `yq e "$exp // \"\" " $properties_yaml_path` > $result_path
         }
 
+        resolve_props '.integrationServer.project' $(results.is-project.path)
         resolve_prop '.integrationServer.applicationName' $(results.is-application-name.path)
         resolve_prop '.integrationServer.releaseName' $(results.is-release-name.path)
         resolve_prop '.integrationServer.endpoint-path' $(results.endpoint-path.path)
