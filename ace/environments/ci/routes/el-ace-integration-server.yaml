@@ -1,11 +1,11 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: ace-bar-webhook-event-listener
+  name: el-ace-integration-server
 spec:
   to:
     kind: Service
-    name: el-ace-bar
+    name: el-ace-integration-server
   port:
     targetPort: https-listener
   tls:
