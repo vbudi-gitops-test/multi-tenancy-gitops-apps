@@ -17,7 +17,7 @@ spec:
       spec:
         params:
           - name: is-source-repo-url
-            value: git@github.com:$(tt.params.git-org)/${tt.params.source-repo}.git
+            value: git@github.com:$(tt.params.git-org)/$(tt.params.source-repo).git
           - name: is-infra-repo-url
             value: git@github.com:$(tt.params.git-org)/ace-infra.git
           - name: git-ops-repo-url
