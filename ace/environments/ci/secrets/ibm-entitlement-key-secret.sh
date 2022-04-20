@@ -13,11 +13,11 @@ oc create secret docker-registry \
   --docker-username=cp \
   --docker-server=cp.icr.io \
   --docker-password=${IBM_ENTITLEMENT_KEY} \
-  --dry-run -o yaml \
+  --dry-run=client -o yaml \
   | oc label -f- \
     created-by=pipeline \
     --local \
-    --dry-run -o yaml \
+    --dry-run=client -o yaml \
   | kubeseal \
     --scope cluster-wide \
     --controller-name=${SEALED_SECRET_CONTOLLER_NAME} \
