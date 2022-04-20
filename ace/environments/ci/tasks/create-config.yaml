@@ -183,7 +183,6 @@ spec:
             config=${relative_path_to_item} yq e -i -P '.resources = (.resources // []) + env(config)' \
               ${KUSTOMIZATION_PATH}
 
-            prettyfy ${KUSTOMIZATION_PATH}
           fi
         }
 
@@ -211,7 +210,7 @@ spec:
       image: bitnami/git
       script: |
         #!/usr/bin/env bash
-        set -eu
+        set -eux
 
         cp -R "${WORKSPACE_SSH_DIRECTORY_PATH}" "${PARAM_USER_HOME}"/.ssh
         chmod 700 "${PARAM_USER_HOME}"/.ssh
@@ -220,6 +219,8 @@ spec:
         # Setting up the config for the git.
         git config --global user.email "${GIT_USER_EMAIL}"
         git config --global user.name "${GIT_USER_NAME}"
+
+        git config --global --add safe.directory $(workspaces.workspace.path)/$(params.repo-directory)
 
         if [[ $(git status -s | wc -l) -eq 0 ]]; then
           echo "No changes"
