@@ -297,12 +297,12 @@ spec:
 
           SOURCE_DIR="../yamls/${SUBDIR}/templates"
 
-          if [[ ! -z "$(params.app-path)/${SUBDIR}/overlays/$(params.environment)/${SUBDIR}" ]]; then
-            rm -rf "$(params.app-path)/${SUBDIR}/overlays/$(params.environment)/${SUBDIR}/*"
+          if [[ ! -z "$(params.app-path)/$(params.environment)/${SUBDIR}/${SUBDIR}" ]]; then
+            rm -rf "$(params.app-path)/$(params.environment)/${SUBDIR}/${SUBDIR}/*"
           fi
 
-          cp -r "$SOURCE_DIR"/*.yaml $(params.app-path)/"${SUBDIR}"/overlays/$(params.environment)/${SUBDIR}
-          cp -r "$SOURCE_DIR"/configmap.yaml $(params.app-path)/"${SUBDIR}"/overlays/$(params.environment)/configmap
+          cp -r "$SOURCE_DIR"/*.yaml $(params.app-path)/$(params.environment)/${SUBDIR}/${SUBDIR}
+          cp -r "$SOURCE_DIR"/configmap.yaml $(params.app-path)/$(params.environment)/"${SUBDIR}"/configmap
 
           APP_VERSION="$(git rev-parse HEAD | cut -c 1-8)"
 

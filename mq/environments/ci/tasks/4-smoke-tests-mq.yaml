@@ -213,6 +213,7 @@ spec:
               echo -n "${SERVICE_PORT}" | tee $(results.service-port.path)
             fi
             echo -n "${target}" | cut -f1 -d / | tee $(results.resource-type.path)
+            echo -n "${target}" | cut -f2 -d / | tee /source/resource-name.txt
           done
       securityContext:
         privileged: true
@@ -225,7 +226,7 @@ spec:
           APP_NAME="$(params.app-name)"
 
           # RELEASE_NAME="${APP_NAME}"
-          RELEASE_NAME="qm1"
+          RELEASE_NAME=$(cat /source/resource-name.txt)
           echo "RELEASE_NAME: $RELEASE_NAME"
 
           podname=$(kubectl get pods --selector=app.kubernetes.io/instance=$RELEASE_NAME -o custom-columns=POD:.metadata.name --no-headers | head -n 1)
