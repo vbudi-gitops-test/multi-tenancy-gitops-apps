@@ -14,11 +14,11 @@ oc create secret generic \
   ${GITOPS_PK_SECRET_NAME} \
   --from-file=id_rsa="${SSH_PRIVATE_KEY_PATH}" \
   --from-literal=known_hosts="$(ssh-keyscan ${GIT_BASEURL} 2>/dev/null)" \
-  --dry-run -o yaml \
+  --dry-run=client -o yaml \
   | oc label -f- \
     created-by=pipeline \
     --local \
-    --dry-run -o yaml \
+    --dry-run=client -o yaml \
   | kubeseal \
     --scope cluster-wide \
     --controller-name=${SEALED_SECRET_CONTOLLER_NAME} \
