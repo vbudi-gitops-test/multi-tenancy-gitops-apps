@@ -1,5 +1,3 @@
----
-# Source: mq-infra/templates/qm-template.yaml
 apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
 metadata:
@@ -14,10 +12,5 @@ spec:
     use: NonProduction
   queueManager:
     name: QM1
-    mqsc:
-    - configMap:
-        name: mqsc-configmap
-        items:
-        - config.mqsc
   web:
     enabled: true
