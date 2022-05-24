@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prod-mq-infra-instance
+  name: prod-mq-qm01-instance
   annotations:
     argocd.argoproj.io/sync-wave: "300"
   finalizers:
@@ -12,7 +12,7 @@ spec:
     server: https://kubernetes.default.svc
   project: applications
   source:
-    path: mq/environments/prod/mq-infra/
+    path: mq/environments/prod/mq-qm01/
     repoURL: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
     targetRevision: master
   syncPolicy: {}

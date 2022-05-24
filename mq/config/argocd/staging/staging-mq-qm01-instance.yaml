@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-mq-infra-instance
+  name: staging-mq-qm01-instance
   annotations:
     argocd.argoproj.io/sync-wave: "300"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: dev
+    namespace: staging
     server: https://kubernetes.default.svc
   project: applications
   source:
-    path: mq/environments/dev/mq-infra/
+    path: mq/environments/staging/mq-qm01/
     repoURL: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
     targetRevision: master
   syncPolicy:
