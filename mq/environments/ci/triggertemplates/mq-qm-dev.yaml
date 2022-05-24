@@ -2,8 +2,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   labels:
-    app: mq-infra-dev
-  name: mq-infra-dev
+    app: mq-qm-dev
+  name: mq-qm-dev
 spec:
   params:
   - description: The git revision
@@ -14,7 +14,7 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: mq-infra-dev-
+      generateName: mq-qm-dev-
     spec:
       params:
       - name: git-url
@@ -22,4 +22,4 @@ spec:
       - name: git-revision
         value: $(tt.params.gitrevision)
       pipelineRef:
-        name: mq-infra-dev
+        name: mq-qm-dev

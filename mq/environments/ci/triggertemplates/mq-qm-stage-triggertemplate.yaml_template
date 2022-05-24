@@ -2,8 +2,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   labels:
-    app: mq-infra-post-stage
-  name: mq-infra-post-stage
+    app: mq-qm-post-stage
+  name: mq-qm-post-stage
 spec:
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
@@ -18,6 +18,6 @@ spec:
       spec:
         params:
         - name: git-url
-          value: https://github.com/${GIT_ORG}/mq-infra.git
+          value: https://github.com/${GIT_ORG}/mq-qm01.git
         pipelineRef:
           name: ibm-mq-promote-stage-prod

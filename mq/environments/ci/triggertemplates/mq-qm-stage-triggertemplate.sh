@@ -7,6 +7,6 @@ if [[ -z ${GIT_ORG} ]]; then
 fi
 
 # Create Kubernetes Secret yaml
-( echo "cat <<EOF" ; cat mq-infra-dev-triggertemplate.yaml_template ; echo EOF ) | \
+( echo "cat <<EOF" ; cat mq-qm-stage-triggertemplate.yaml_template ; echo EOF ) | \
 GIT_ORG=${GIT_ORG} \
-sh > mq-infra-dev-triggertemplate.yaml
+sh > mq-qm-stage-triggertemplate.yaml
