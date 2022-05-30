@@ -17,7 +17,7 @@ spec:
     bindings:
       - ref: cnkt-trigger-binding
     template:
-      ref: mq-qm01-dev
+      ref: mq-qm-dev
   # - name: mq-spring-app-dev
   #   interceptors:
   #     - ref:
