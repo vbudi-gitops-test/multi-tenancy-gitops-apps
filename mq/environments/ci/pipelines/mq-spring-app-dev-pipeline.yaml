@@ -24,9 +24,6 @@ spec:
     - name: security
       description: enable app security
       default: "false"
-    - name: ha
-      description: enable high availability
-      default: "false"
     - name: git-pr
       description: Enable the pipeline to do a PR for the gitops repo
       default: "false"
@@ -181,8 +178,6 @@ spec:
           value: "$(tasks.setup.results.tools-image)"
         - name : security
           value: "$(params.security)"
-        - name: ha
-          value: "$(params.ha)"
         - name: dest-environment
           value: "$(params.environment)"
         - name: git-pr

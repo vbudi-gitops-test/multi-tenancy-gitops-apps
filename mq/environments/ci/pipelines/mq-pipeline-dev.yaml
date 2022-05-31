@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: mq-infra-dev
+  name: mq-qm-dev
   annotations:
     app.openshift.io/runtime: mq
 spec:
@@ -90,7 +90,7 @@ spec:
           value: "$(tasks.setup.results.tools-image)"
         - name : security
           value: "$(params.security)"
-        - name: ha
+        - name : ha
           value: "$(params.ha)"
     - name: tag-release
       taskRef:

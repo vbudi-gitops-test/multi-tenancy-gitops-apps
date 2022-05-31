@@ -109,30 +109,35 @@ spec:
           if [[ -z "${SUBDIR}" ]]; then
             SUBDIR="${APP_NAME}"
           fi
+          if [[ $APP_NAME == *"qm"* ]]; then
+            export ARTIFACT_DIR="queuemanager"
+          else
+            export ARTIFACT_DIR="deployment"
+          fi
           if [[ -n "$(params.parentdir)" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_SRC="$(params.parentdir)/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_DEST="$(params.parentdir)/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]] && [[ "${GIT_PARENT_DIR}" = "bash -c"* ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_SRC=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_DEST=$(eval $GIT_PARENT_DIR | tail -n 1)"/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             else
               echo "Please set destination environment"
             fi
           elif [[ -n "${GIT_PARENT_DIR}" ]]; then
             if [[ -n "$(params.src-environment)" ]]; then
-              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_SRC="${GIT_PARENT_DIR}/$(params.app-path)/$(params.src-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             fi
             if [[ -n "$(params.dest-environment)" ]]; then
-              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${SUBDIR}"
+              PARENT_DIR_DEST="${GIT_PARENT_DIR}/$(params.app-path)/$(params.dest-environment)/${SUBDIR}/${ARTIFACT_DIR}"
             else
               echo "Please set destination environment"
             fi
