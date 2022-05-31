@@ -1,2 +1,2 @@
 resources:
-  - qm-template.yaml
+  - queuemanager.yaml
