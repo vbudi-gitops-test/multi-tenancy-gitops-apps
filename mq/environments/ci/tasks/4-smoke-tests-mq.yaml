@@ -143,7 +143,7 @@ spec:
             INGRESS_ENABLED="true"
           fi
 
-          kubectl kustomize ./$YAML_ROOT/ > release.yaml
+          kustomize build ./$YAML_ROOT/ > release.yaml
 
           echo -e "Generated release yaml for: ${APP_NAMESPACE}/${APP_NAME}"
           cat ./release.yaml
