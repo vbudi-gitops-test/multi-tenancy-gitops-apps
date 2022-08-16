@@ -239,4 +239,5 @@ spec:
           kubectl delete -n ${APP_NAMESPACE} -f ./release.yaml
 
           if [[ "$(params.storage)" == "true" ]]; then
-            kubectl get pods -n ${APP_NAMESPACE} | awk '/^qm1/{system("oc delete pod " $1)}'
+            kubectl delete --all pvc -n ${APP_NAMESPACE}
+          fi
