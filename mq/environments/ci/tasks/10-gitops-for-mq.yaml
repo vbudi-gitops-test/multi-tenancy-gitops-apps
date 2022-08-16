@@ -32,6 +32,8 @@ spec:
       default: ""
     - name : security
       default: ""
+    - name: storage
+      default: ""
     - name: ha
       default: ""
     - name: deploy-ingress-type
@@ -118,6 +120,8 @@ spec:
           if [[ $APP_NAME == *"qm"* ]] ; then
             if [[ "$(params.ha)" == "true" ]] ; then
               export YAML_ROOT="$(params.yaml)/native-ha-qmgr"
+            elif [[ "$(params.storage)" == "true" ]]; then
+              eport YAML_ROOT="$(params.yaml)/durable-qmgr"
             else
               export YAML_ROOT="$(params.yaml)/generic-qmgr"
             fi
@@ -248,6 +252,8 @@ spec:
           if [[ $APP_NAME == *"qm"* ]]; then
             if [[ "$(params.ha)" == "true" ]] ; then
               export SOURCE_DIR="../$(params.yaml)/native-ha-qmgr"
+            elif [[ "$(params.storage)" == "true" ]]; then
+              export SOURCE_DIR="../$(params.yaml)/durable-qmgr"
             else
               export SOURCE_DIR="../$(params.yaml)/generic-qmgr"
             fi
