@@ -121,7 +121,7 @@ spec:
             if [[ "$(params.ha)" == "true" ]] ; then
               export YAML_ROOT="$(params.yaml)/native-ha-qmgr"
             elif [[ "$(params.storage)" == "true" ]]; then
-              eport YAML_ROOT="$(params.yaml)/durable-qmgr"
+              export YAML_ROOT="$(params.yaml)/durable-qmgr"
             else
               export YAML_ROOT="$(params.yaml)/generic-qmgr"
             fi
@@ -132,7 +132,7 @@ spec:
           echo "YAML_ROOT: $YAML_ROOT"
 
           if [[ -f "$YAML_ROOT/queuemanager.yaml" ]]; then
-            export YAML="$YAML_ROOT/queuemanager.yaml"
+            export YAML="$(params.yaml)/generic-qmgr/queuemanager.yaml"
           elif [[ -f "$YAML_ROOT/deployment.yaml" ]]; then
             export YAML="$YAML_ROOT/deployment.yaml"
           elif [[ -f statefulset.yaml ]]; then
@@ -154,6 +154,9 @@ spec:
           fi
 
           kustomize build ./$YAML_ROOT/ > release.yaml
+
+          echo -e "Generated release yaml for: ${APP_NAME}"
+          cat ./release.yaml
 
           awk '
           /apiVersion:/{
@@ -318,4 +321,3 @@ spec:
             GIT_PUSH_URL="${PROTOCOL}://api.github.com/repos/${GIT_ORG}/${GIT_REPO}/pulls"
             curl -u ${GIT_AUTH_USER}:${GIT_AUTH_PWD} -d '{"title":"PR to promote to '$(params.dest-environment)' for '$(params.app-name)'","base":"'${GIT_BRANCH}'", "head":"'${GIT_ORG}':cntk-ci-pipeline-'${APP_NAME}'-'${APP_VERSION}'"}' ${GIT_PUSH_URL}
           fi
-    
