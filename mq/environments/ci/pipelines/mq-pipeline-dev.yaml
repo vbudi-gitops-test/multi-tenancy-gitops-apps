@@ -23,6 +23,9 @@ spec:
     - name: security
       description: Enable security for queueManager
       default: "false"
+    - name: storage
+      description: Enable storage for queueManager
+      default: "false"
     - name: ha
       description: Enable ha for queueManager
       default: "false"
@@ -90,6 +93,8 @@ spec:
           value: "$(tasks.setup.results.tools-image)"
         - name : security
           value: "$(params.security)"
+        - name: storage
+          value: "$(params.storage)"
         - name : ha
           value: "$(params.ha)"
     - name: tag-release
@@ -162,6 +167,8 @@ spec:
           value: "$(params.security)"
         - name: ha
           value: "$(params.ha)"
+        - name: storage
+          value: "$(params.storage)"
         - name: dest-environment
           value: "$(params.environment)"
         - name: git-pr

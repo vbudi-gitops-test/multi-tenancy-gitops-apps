@@ -32,6 +32,8 @@ spec:
       default: ""
     - name : security
       default: ""
+    - name: storage
+      default: ""
     - name: ha
       default: ""
     - name: deploy-ingress-type
@@ -118,6 +120,8 @@ spec:
           if [[ $APP_NAME == *"qm"* ]] ; then
             if [[ "$(params.ha)" == "true" ]] ; then
               export YAML_ROOT="$(params.yaml)/native-ha-qmgr"
+            elif [[ "$(params.storage)" == "true" ]]; then
+              export YAML_ROOT="$(params.yaml)/durable-qmgr"
             else
               export YAML_ROOT="$(params.yaml)/generic-qmgr"
             fi
@@ -128,7 +132,7 @@ spec:
           echo "YAML_ROOT: $YAML_ROOT"
 
           if [[ -f "$YAML_ROOT/queuemanager.yaml" ]]; then
-            export YAML="$YAML_ROOT/queuemanager.yaml"
+            export YAML="$(params.yaml)/generic-qmgr/queuemanager.yaml"
           elif [[ -f "$YAML_ROOT/deployment.yaml" ]]; then
             export YAML="$YAML_ROOT/deployment.yaml"
           elif [[ -f statefulset.yaml ]]; then
@@ -148,6 +152,23 @@ spec:
             rm ${YAML}
             mv ${YAML_NEW} ${YAML}
           fi
+
+          kustomize build ./$YAML_ROOT/ > release.yaml
+
+          echo -e "Generated release yaml for: ${APP_NAME}"
+          cat ./release.yaml
+
+          awk '
+          /apiVersion:/{
+            close(file)
+            file="queuemanager.yaml"
+          }
+          file!="" && !/^--/{
+            print > (file)
+          }
+          ' release.yaml
+
+          cat ./queuemanager.yaml
       securityContext:
         privileged: true
     - name: gitops
@@ -248,14 +269,16 @@ spec:
           if [[ $APP_NAME == *"qm"* ]]; then
             if [[ "$(params.ha)" == "true" ]] ; then
               export SOURCE_DIR="../$(params.yaml)/native-ha-qmgr"
+            elif [[ "$(params.storage)" == "true" ]]; then
+              export SOURCE_DIR="../$(params.yaml)/durable-qmgr"
             else
               export SOURCE_DIR="../$(params.yaml)/generic-qmgr"
             fi
           else
             export SOURCE_DIR="../$(params.yaml)"
           fi
-          if [[ -f "$SOURCE_DIR/queuemanager.yaml" ]]; then
-            cp -r "$SOURCE_DIR"/queuemanager.yaml $(params.app-path)/$(params.environment)/${SUBDIR}/queuemanager
+          if [[ -f "$(params.source-dir)/queuemanager.yaml" ]]; then
+            cp -r $(params.source-dir)/queuemanager.yaml $(params.app-path)/$(params.environment)/${SUBDIR}/queuemanager
           elif [[ -f "$SOURCE_DIR/deployment.yaml" ]]; then
             cp -r "$SOURCE_DIR"/deployment.yaml $(params.app-path)/$(params.environment)/${SUBDIR}/deployment
           elif [[ -f statefulset.yaml ]]; then

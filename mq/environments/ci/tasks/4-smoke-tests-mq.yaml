@@ -28,6 +28,8 @@ spec:
       default: ""
     - name: app-name
       default: ""
+    - name: storage
+      default: ""
     - name : security
       default: ""
     - name : ha
@@ -78,19 +80,6 @@ spec:
     - name: deploy
       image: $(params.tools-image)
       workingDir: $(params.source-dir)
-      env:
-        - name: TLS_SECRET_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: ibmcloud-config
-              key: TLS_SECRET_NAME
-              optional: true
-        - name: INGRESS_SUBDOMAIN
-          valueFrom:
-            configMapKeyRef:
-              name: ibmcloud-config
-              key: INGRESS_SUBDOMAIN
-              optional: true
       script: |
           #!/usr/bin/env bash
           set -ex
@@ -106,6 +95,8 @@ spec:
 
           if $(params.ha); then
             export YAML_ROOT="$(params.yaml)/native-ha-qmgr"
+          elif $(params.storage); then
+            export YAML_ROOT="$(params.yaml)/durable-qmgr"
           else
             export YAML_ROOT="$(params.yaml)/generic-qmgr"
           fi
@@ -113,7 +104,7 @@ spec:
           echo "YAML_ROOT: $YAML_ROOT"
 
           if [[ -f "$YAML_ROOT/queuemanager.yaml" ]]; then
-            export YAML="$YAML_ROOT/queuemanager.yaml"
+            export YAML="$(params.yaml)/generic-qmgr/queuemanager.yaml"
           elif [[ -f "$YAML_ROOT/deployment.yaml" ]]; then
             export YAML="$YAML_ROOT/deployment.yaml"
           elif [[ -f statefulset.yaml ]]; then
@@ -239,19 +230,6 @@ spec:
     - name: cleanup
       image: $(params.tools-image)
       workingDir: $(params.source-dir)
-      env:
-        - name: TLS_SECRET_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: ibmcloud-config
-              key: TLS_SECRET_NAME
-              optional: true
-        - name: INGRESS_SUBDOMAIN
-          valueFrom:
-            configMapKeyRef:
-              name: ibmcloud-config
-              key: INGRESS_SUBDOMAIN
-              optional: true
       script: |
           #!/usr/bin/env bash
           set -ex
@@ -259,3 +237,7 @@ spec:
           APP_NAMESPACE="$(params.app-namespace)"
 
           kubectl delete -n ${APP_NAMESPACE} -f ./release.yaml
+
+          if [[ "$(params.storage)" == "true" ]]; then
+            kubectl delete --all pvc -n ${APP_NAMESPACE}
+          fi
